@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Clothes Shop
  This is a Unity project for a clothes shop in a simulation game, similar to 'The Sims' and 'Stardew Valley'. The clothes shop allows players to interact with the shopkeeper, purchase and sell items, view item icons and prices, and equip outfits that are visible on the character.
 
@@ -42,7 +41,4 @@ Ahmed Alaff - Initial work
 
 
 
-=======
-# ClothesShop
- 
->>>>>>> parent of baae77f5 (Update README.md)
+
