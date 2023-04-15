@@ -4406,7 +4406,6 @@ MonoBehaviour:
   itemList:
   - {fileID: 11400000, guid: d945ae6ca253e744b85afc0534dbab0b, type: 2}
   - {fileID: 11400000, guid: 5509913f69c4cda4a902ddf7be622d83, type: 2}
-  - {fileID: 11400000, guid: 9971ca0131149b4408e8fbba30c3a0bd, type: 2}
 --- !u!1 &767692477
 GameObject:
   m_ObjectHideFlags: 0

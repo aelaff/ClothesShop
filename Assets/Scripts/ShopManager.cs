@@ -1,3 +1,6 @@
+// This script manages the shop's item list, basket, and total price.
+// It also handles purchasing items and removing items from the basket.
+
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
@@ -13,14 +16,16 @@ public class ShopManager : MonoBehaviour
     private List<Item> availableItems;
     private List<Item> basketItems;
     private int totalPrice;
-    
 
+
+    // Initializes the availableItems and basketItems lists on Awake.
     private void Awake()
     {
         availableItems = new List<Item>();
         basketItems = new List<Item>();
     }
 
+    // Populates the item list and basket list with items from the ItemDatabase on Enable.
     private void OnEnable()
     {
         availableItems.Clear();
@@ -38,6 +43,7 @@ public class ShopManager : MonoBehaviour
         UpdateTotalPrice();
     }
 
+    // Adds an item to the basket and updates the total price when an item is clicked.
     private void OnItemClicked(Item item)
     {
         if (!basketItems.Contains(item))
@@ -53,6 +59,7 @@ public class ShopManager : MonoBehaviour
         UpdateTotalPrice();
     }
 
+    // Updates the total price by summing the prices of all items in the basket.
     private void UpdateTotalPrice()
     {
         totalPrice = 0;
@@ -63,6 +70,8 @@ public class ShopManager : MonoBehaviour
         totalPriceText.text = "$" + totalPrice.ToString();
     }
 
+    // Purchases all items in the basket that have not already been purchased.
+    // If the player doesn't have enough money to purchase an item, a pop-up is shown.
     public void OnPurchaseButtonClicked()
     {
         bool allPurchased = true;
@@ -92,6 +101,7 @@ public class ShopManager : MonoBehaviour
         DestroyChildren(basketListParent);
         purchaseBtn.interactable = false;
     }
+    // Removes an item from the basket and updates the total price.
     public void RemoveItemFromBasket(Item item)
     {
         basketItems.Remove(item);
@@ -100,6 +110,7 @@ public class ShopManager : MonoBehaviour
 
         UpdateTotalPrice();
     }
+    // Destroys all children of passed transform
     public void DestroyChildren(Transform transform)
     {
         for (int i = transform.childCount - 1; i >= 0; i--)

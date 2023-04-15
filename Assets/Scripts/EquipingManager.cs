@@ -1,7 +1,10 @@
+// A script for managing the equipping of items on a character
+
 using UnityEngine;
 
 public class EquipingManager : MonoBehaviour
 {
+    // References to the sprite renderers for each equipped item
     public SpriteRenderer pelvisArmorRenderer;
     public SpriteRenderer torsoRenderer;
     public SpriteRenderer armLRenderer;
@@ -14,6 +17,7 @@ public class EquipingManager : MonoBehaviour
     public SpriteRenderer legRRenderer;
     public SpriteRenderer shinRRenderer;
 
+    // The default sprite for each equipped item
     private Sprite defaultPelvisArmorSprite;
     private Sprite defaultTorsoSprite;
     private Sprite defaultArmLSprite;
@@ -25,6 +29,8 @@ public class EquipingManager : MonoBehaviour
     private Sprite defaultShinLSprite;
     private Sprite defaultLegRSprite;
     private Sprite defaultShinRSprite;
+
+    // A static property to get the instance of the EquipingManager
     private static EquipingManager instance;
     public static EquipingManager Instance
     {
@@ -59,9 +65,11 @@ public class EquipingManager : MonoBehaviour
         defaultShinRSprite = shinRRenderer.sprite;
     }
 
+    // A function to equip an item onto the character
     public void EquipItem(Item item)
     {
 
+        // Set the sprite of each equipped item to the corresponding sprite of the item, or the default sprite if the item sprite is null
         pelvisArmorRenderer.sprite = item.PelvisArmor ?? defaultPelvisArmorSprite;
         torsoRenderer.sprite = item.Torso ?? defaultTorsoSprite;
         armLRenderer.sprite = item.ArmL ?? defaultArmLSprite;
@@ -75,6 +83,7 @@ public class EquipingManager : MonoBehaviour
         shinRRenderer.sprite = item.ShinR ?? defaultShinRSprite;
     }
 
+    // A function to unequip all items from the character and set all equipped item sprites to their default sprites
     public void UnequipItem()
     {
         pelvisArmorRenderer.sprite = defaultPelvisArmorSprite;
