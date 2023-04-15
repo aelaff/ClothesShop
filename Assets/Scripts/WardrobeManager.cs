@@ -29,11 +29,11 @@ public class WardrobeManager : MonoBehaviour
             return instance;
         }
     }
-    void Start()
+    void OnEnable()
     {
         purchasedItems = GameManager.Instance.PurchasedItems;
         wardrobeItemUIs = new List<WardrobeItemUI>();
-
+        DestroyChildren(wardrobeListParent);
         for (int i = 0; i < purchasedItems.Count; i++)
         {
             GameObject newItem = Instantiate(wardrobeItemPrefab, wardrobeListParent);
@@ -73,6 +73,28 @@ public class WardrobeManager : MonoBehaviour
             }
         }
     }
+    public void UpdateWardrobeList()
+    {
+        // Clear the current wardrobe item UIs.
+        foreach (WardrobeItemUI wardrobeItemUI in wardrobeItemUIs)
+        {
+            Destroy(wardrobeItemUI.gameObject);
+        }
+        wardrobeItemUIs.Clear();
+
+        // Rebuild the wardrobe item UIs.
+        purchasedItems = GameManager.Instance.PurchasedItems;
+        for (int i = 0; i < purchasedItems.Count; i++)
+        {
+            GameObject newItem = Instantiate(wardrobeItemPrefab, wardrobeListParent);
+            WardrobeItemUI wardrobeItem = newItem.GetComponent<WardrobeItemUI>();
+            bool isEquipped = GameManager.Instance.EquippedItems.Contains(purchasedItems[i]);
+            wardrobeItem.Initialize(purchasedItems[i], isEquipped);
+            wardrobeItemUIs.Add(wardrobeItem);
+        }
+
+
+    }
     public void RemoveItemFromUI(Item item)
     {
         WardrobeItemUI wardrobeItemToRemove = null;
@@ -88,6 +110,13 @@ public class WardrobeManager : MonoBehaviour
         {
             wardrobeItemUIs.Remove(wardrobeItemToRemove);
             Destroy(wardrobeItemToRemove.gameObject);
+        }
+    }
+    public void DestroyChildren(Transform transform)
+    {
+        for (int i = transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(transform.GetChild(i).gameObject);
         }
     }
 }

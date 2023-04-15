@@ -65,22 +65,32 @@ public class ShopManager : MonoBehaviour
 
     public void OnPurchaseButtonClicked()
     {
-        if (GameManager.Instance.SpendMoney(totalPrice))
+        bool allPurchased = true;
+        foreach (Item item in basketItems)
         {
-            foreach (Item item in basketItems)
+            if (!GameManager.Instance.PurchasedItems.Contains(item))
             {
-                GameManager.Instance.AddPurchasedItem(item);
+                allPurchased = false;
+                if (GameManager.Instance.SpendMoney(item.Price))
+                {
+                    GameManager.Instance.AddPurchasedItem(item);
+                }
+                else
+                {
+                    UIManager.Instance.popUp.ShowPopup("Money", "You do not have enough money to buy these items ! ");
+                    break;
+                }
             }
-            basketItems.Clear();
-            UpdateTotalPrice();
-            DestroyChildren(basketListParent);
-            purchaseBtn.interactable = false;
-
-
         }
-        else {
-            UIManager.Instance.popUp.ShowPopup("Coins","You do not have enough coins to buy these items ! ");
+        if (allPurchased)
+        {
+            UIManager.Instance.popUp.ShowPopup("Purchased", "All items are already purchased!");
         }
+
+        basketItems.Clear();
+        UpdateTotalPrice();
+        DestroyChildren(basketListParent);
+        purchaseBtn.interactable = false;
     }
     public void RemoveItemFromBasket(Item item)
     {

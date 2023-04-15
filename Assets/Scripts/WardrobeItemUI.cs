@@ -58,8 +58,11 @@ public class WardrobeItemUI : MonoBehaviour
     {
         GameManager.Instance.AddMoney(item.Price);
         GameManager.Instance.RemovePurchasedItem(item);
-        WardrobeManager.Instance.RemoveItemFromUI(item);
         WardrobeManager.Instance.UnequipItem(this);
+        WardrobeManager.Instance.UpdateWardrobeList(); 
+        //WardrobeManager.Instance.RemoveItemFromUI(item);
+        
+
         Destroy(gameObject);
     }
 }
